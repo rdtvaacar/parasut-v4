@@ -2,14 +2,14 @@
 
 namespace Parasut;
 
-Class Invoice extends Base
+class Invoice extends Base
 {
     public function listInvoices($params = [])
     {
         return $this->client->request(
-          'sales_invoices/',
-          $params,
-          'GET'
+            'sales_invoices/',
+            $params,
+            'GET'
         );
     }
 
@@ -17,9 +17,9 @@ Class Invoice extends Base
     public function show($id, $params = [])
     {
         return $this->client->request(
-          'sales_invoices/'.$id,
-          $params,
-          'GET'
+            'sales_invoices/' . $id,
+            $params,
+            'GET'
         );
     }
 
@@ -27,7 +27,7 @@ Class Invoice extends Base
     public function checkPdf($id)
     {
         $response = $this->client->request(
-            'sales_invoices/'.$id.'?include=active_e_document',
+            'sales_invoices/' . $id . '?include=active_e_document',
             [],
             'GET'
         );
@@ -40,10 +40,11 @@ Class Invoice extends Base
     public function edit($id, $data)
     {
         return $this->client->request(
-            'sales_invoices/'.$id,
+            'sales_invoices/' . $id,
             $data
         );
     }
+
     public function create($data)
     {
         return $this->client->request(
@@ -51,16 +52,21 @@ Class Invoice extends Base
             $data
         );
     }
-    
+
     public function delete($id)
     {
-        return $this->client->request('sales_invoices/'.$id,[],'DELETE');
+        return $this->client->request('sales_invoices/' . $id, [], 'DELETE');
     }
-    
+
+    public function cancel($id)
+    {
+        return $this->client->request('sales_invoices/' . $id . '/cancel', [], 'DELETE');
+    }
+
     public function pay($id, $data)
     {
         $resp = $this->client->request(
-            'sales_invoices/'.$id.'/payments',
+            'sales_invoices/' . $id . '/payments',
             $data
         );
         return $resp;
@@ -69,7 +75,7 @@ Class Invoice extends Base
     public function checkType($vkn)
     {
         return $this->client->request(
-            'e_invoice_inboxes?filter[vkn]='.$vkn,
+            'e_invoice_inboxes?filter[vkn]=' . $vkn,
             [],
             'GET'
         );
@@ -86,11 +92,11 @@ Class Invoice extends Base
     public function show_e_archive($id)
     {
         return $this->client->request(
-            'e_archives/'.$id,
+            'e_archives/' . $id,
             [],
             'GET'
         );
-        
+
     }
 
     public function pdf_e_archive($id)
@@ -113,7 +119,7 @@ Class Invoice extends Base
     public function show_e_invoice($id)
     {
         return $this->client->request(
-          'e_invoices/'.$id,
+            'e_invoices/' . $id,
             [],
             'GET'
         );
@@ -131,7 +137,7 @@ Class Invoice extends Base
     public function checkJobStatus($id)
     {
         return $this->client->request(
-            'trackable_jobs/'.$id,
+            'trackable_jobs/' . $id,
             [],
             'GET'
         );
